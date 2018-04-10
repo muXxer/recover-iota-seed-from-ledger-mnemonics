@@ -1,0 +1,3 @@
+git+https://github.com/iotaledger/iota.lib.py.git#egg=iota.lib.py
+git+https://github.com/prusnak/bip32utils#egg=bip32utils
+git+https://github.com/trezor/python-mnemonic#egg=python-mnemonic
