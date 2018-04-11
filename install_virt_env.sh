@@ -19,7 +19,8 @@ if ! type "gawk" &> /dev/null; then
 fi
 
 linux_distr=`gawk -F= '/^NAME/{print $2}' /etc/os-release`
-if [ ${linux_distr} != '"Ubuntu"' ];
+echo $linux_distr
+if [ "${linux_distr}" != '"Ubuntu"' ];
 then
     print_err "ERROR: This script was created for Ubuntu only! Exiting..."
     exit 1
