@@ -14,14 +14,28 @@ function print_err  { printf "${_bold}${_red}%s${_reset}\n" "$@"; }
 print_ok "Checking linux distribution..."
 
 if ! type "gawk" &> /dev/null; then
-  print_err "ERROR: gawk is missing! If you're on Ubuntu, please run 'sudo apt install -y gawk'"
+  print_err "ERROR: gawk is missing! If you're on Debian or Ubuntu, please run 'sudo apt install -y gawk'"
   exit 1
 fi
 
-linux_distr=`gawk -F= '/^NAME/{print $2}' /etc/os-release`
-if [ "${linux_distr}" != '"Ubuntu"' ];
+linux_id=`gawk -F= '/^ID=/{print $2}' /etc/os-release`
+linux_version_id=`gawk -F= '/^VERSION_ID=/{print $2}' /etc/os-release`
+if [ ${linux_id} = 'debian' ];
 then
-    print_err "ERROR: This script was created for Ubuntu only! Exiting..."
+    if [ ${linux_version_id} != '"9"' ];
+    then
+        print_err "ERROR: This script was tested under Debian 9 (stretch) only! Exiting..."
+        exit 1
+    fi
+elif [ ${linux_id} = 'ubuntu' ];
+then
+    if ! [[ "${linux_version_id}" =~ ^('"16.04"'|'"16.10"'|'"17.04"'|'"17.10"'|'"18.04"')$ ]];
+    then
+        print_err "ERROR: This script was tested under Ubuntu 16.04 till 18.04 only! Exiting..."
+        exit 1
+	fi
+else
+    print_err "ERROR: This script was created for Debian and Ubuntu only! Exiting..."
     exit 1
 fi
 
