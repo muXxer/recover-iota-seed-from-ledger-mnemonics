@@ -13,16 +13,25 @@ def InputSeed():
 
 #===============================================================================
 def InputIndex():
-    print("\nPlease enter address index:")
+    print("\nPlease enter address start index:")
     
     try:
-        return input("   Address Index: ")
+        return input("   Address start index: ")
+    except KeyboardInterrupt:
+        return None
+
+#===============================================================================
+def InputAddressAmount():
+    print("\nPlease enter the amount of addresses to generate:")
+    
+    try:
+        return input("   Address amount: ")
     except KeyboardInterrupt:
         return None
 
 #===============================================================================
 def CreateAddress():
-    print("\nWelcome to IOTA address generator!")
+    print("\nWelcome to IOTA addresses generator!")
     
     seed = InputSeed()
     if seed == None:
@@ -31,12 +40,23 @@ def CreateAddress():
     index = InputIndex()
     if index == None:
         return
-    
-    generator = AddressGenerator(seed)
-    addresses = generator.get_addresses(start=int(index), step=1)
+    index = int(index)
 
-    print("\nYour Address: %s" % addresses[0])
-    print("\nhttps://thetangle.org/address/%s\n" % (addresses[0]))
+    amount = InputAddressAmount()
+    if amount == None:
+        return
+    amount = int(amount)
+
+    generator = AddressGenerator(seed)
+    addresses = generator.get_addresses(start=index, count=amount, step=1)
+
+    offset = 0
+    for address in addresses:
+        print("\nYour Address #%d: %s" % (index+offset, address))
+        print("\n                  https://thetangle.org/address/%s" % (address))
+        offset += 1
+    
+    print()
 
 #===============================================================================
 if __name__ == '__main__':
