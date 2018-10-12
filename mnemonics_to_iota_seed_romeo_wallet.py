@@ -19,8 +19,7 @@ def InputRomeoAccount():
         
         if account >= 1000000000:           # from 0 to 999999999
             account_str = str(account)
-            account = int(account_str[len(account_str)-9:])
-        
+            account = int(account_str[0:9])
         return account       
     except KeyboardInterrupt:
         return None
