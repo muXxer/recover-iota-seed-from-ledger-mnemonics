@@ -14,7 +14,7 @@ def InputRomeoAccount():
         except:
             # Account is not an integer, hash the text with xxhash
             x = xxhash.xxh32(seed=0xABCD)
-            x.update(bytes(romeo_account.upper().lstrip().rstrip()))
+            x.update(romeo_account.upper().lstrip().rstrip())
             account = x.intdigest()
         
         if account >= 1000000000:           # from 0 to 999999999
@@ -54,10 +54,13 @@ def RecoverRomeoSeed():
     if account == None:
         return
     
+
     page_index = InputRomeoPageIndex()
     if page_index == None:
         return
     
+    print("\nRomeo account Nr: %d" % (account))
+    print("Romeo page index: %d" % (page_index))
     MnemonicsToIotaSeed(recovery_words, passphrase, bip44_account=account, bip44_page_index=page_index)
 
 #===============================================================================
