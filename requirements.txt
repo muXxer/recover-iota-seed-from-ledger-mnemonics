@@ -1,4 +1,4 @@
-git+git://github.com/iotaledger/iota.lib.py@3f452a627233d413269381970058780a09215d64#egg=pyota
+pyota==2.0.6
 mnemonic==0.18
-git+git://github.com/lyndsysimon/bip32utils@56f5a56d1c54e648f35b670a87efabbca08fffae#egg=bip32utils
+git+git://github.com/muXxer/bip32utils@125de37afd4f0b1fe9c4685129a3800d75632ea2#egg=bip32utils
 xxhash==1.2.0
