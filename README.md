@@ -25,3 +25,8 @@ Run the python script and enter your recovery phrase and passphrase in the comma
 ```sh
 python mnemonics_to_iota_seed.py
 ```
+
+If you use the Romeo wallet, you can use the following script to enter your account and page index.
+```sh
+python mnemonics_to_iota_seed_romeo_wallet.py
+```
