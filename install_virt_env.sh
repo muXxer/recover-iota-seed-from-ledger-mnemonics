@@ -29,7 +29,7 @@ then
     fi
 elif [ ${linux_id} = 'ubuntu' ];
 then
-    if ! [[ "${linux_version_id}" =~ ^('"16.04"'|'"16.10"'|'"17.04"'|'"17.10"'|'"18.04"')$ ]];
+    if ! [[ "${linux_version_id}" =~ ^('"16.04"'|'"16.10"'|'"17.04"'|'"17.10"'|'"18.04"'|'"18.10"'|'"19.04"'|'"19.10"'|'"20.04"'|'"20.10"')$ ]];
     then
         print_err "ERROR: This script was tested under Ubuntu 16.04 till 18.04 only! Exiting..."
         exit 1

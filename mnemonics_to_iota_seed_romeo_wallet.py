@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import xxhash
 from six.moves import input
-from mnemonics_to_iota_seed import MnemonicsToIotaSeed, InputRecoveryWords, InputPassphrase
+from mnemonics_utils import MnemonicsToIotaSeed, InputRecoveryWords, InputPassphrase
 
 #===============================================================================
 def InputRomeoAccount():
@@ -16,11 +16,11 @@ def InputRomeoAccount():
             x = xxhash.xxh32(seed=0xABCD)
             x.update(romeo_account.upper().lstrip().rstrip())
             account = x.intdigest()
-        
+
         if account >= 1000000000:           # from 0 to 999999999
             account_str = str(account)
             account = int(account_str[0:9])
-        return account       
+        return account
     except KeyboardInterrupt:
         return None
 
@@ -40,27 +40,29 @@ def InputRomeoPageIndex():
 #===============================================================================
 def RecoverRomeoSeed():
     print("\nWelcome to IOTA Ledger Nano seed recovery for Romeo wallet!")
-    
+
     recovery_words = InputRecoveryWords()
     if recovery_words == None:
         return
-    
+
     passphrase = InputPassphrase()
     if passphrase == None:
         return
-    
+
     account    = InputRomeoAccount()
     if account == None:
         return
-    
 
     page_index = InputRomeoPageIndex()
     if page_index == None:
         return
-    
+
     print("\nRomeo account Nr: %d" % (account))
     print("Romeo page index: %d" % (page_index))
-    MnemonicsToIotaSeed(recovery_words, passphrase, bip44_account=account, bip44_page_index=page_index)
+
+    print("\nCalculating your IOTA seed...")
+    iota_seed = MnemonicsToIotaSeed(recovery_words, passphrase, bip44_account=account, bip44_page_index=page_index)
+    print("Seed: %s, Length: %d" % (iota_seed, len(iota_seed)))
 
 #===============================================================================
 if __name__ == '__main__':
