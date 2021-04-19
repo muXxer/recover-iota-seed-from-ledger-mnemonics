@@ -80,3 +80,57 @@ def InputPassphrase():
         return input("   Ledger passphrase: ")
     except KeyboardInterrupt:
         return None
+
+#===============================================================================
+def InputLedgerStartIndex():
+    print("\nPlease enter ledger start index (Trinity default 0):")
+
+    try:
+        return input("   Ledger start index: ")
+    except KeyboardInterrupt:
+        return None
+
+#===============================================================================
+def InputLedgerEndIndex():
+    print("\nPlease enter ledger end index (Trinity default 0):")
+
+    try:
+        return input("   Ledger end index: ")
+    except KeyboardInterrupt:
+        return None
+
+#===============================================================================
+def InputLedgerStartPage():
+    print("\nPlease enter ledger start page (Trinity default 0):")
+
+    try:
+        return input("   Ledger start page: ")
+    except KeyboardInterrupt:
+        return None
+
+#===============================================================================
+def InputLedgerEndPage():
+    print("\nPlease enter ledger end page (Trinity default 0):")
+
+    try:
+        return input("   Ledger end page: ")
+    except KeyboardInterrupt:
+        return None
+
+#===============================================================================
+def InputAddressAmount():
+    print("\nPlease enter the amount of addresses to generate:")
+
+    try:
+        return input("   Address amount: ")
+    except KeyboardInterrupt:
+        return None
+
+#===============================================================================
+def InputTargetAddress():
+    print("\nPlease enter a target address with checksum:")
+
+    try:
+        return input("   Address: ")
+    except KeyboardInterrupt:
+        return None

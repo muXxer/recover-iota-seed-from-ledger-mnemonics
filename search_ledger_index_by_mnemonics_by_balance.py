@@ -1,56 +1,11 @@
 
 # -*- coding: utf-8 -*-
 from six.moves import input
-from mnemonics_utils import MnemonicsToIotaSeed, InputRecoveryWords, InputPassphrase
+from mnemonics_utils import *
 from iota import Iota
 from iota.crypto.addresses import AddressGenerator
 
 api = Iota('https://nodes.iota.org:443')
-
-#===============================================================================
-def InputLedgerStartIndex():
-    print("\nPlease enter ledger start index (Trinity default 0):")
-
-    try:
-        return input("   Ledger start index: ")
-    except KeyboardInterrupt:
-        return None
-
-#===============================================================================
-def InputLedgerEndIndex():
-    print("\nPlease enter ledger end index (Trinity default 0):")
-
-    try:
-        return input("   Ledger end index: ")
-    except KeyboardInterrupt:
-        return None
-
-#===============================================================================
-def InputLedgerStartPage():
-    print("\nPlease enter ledger start page (Trinity default 0):")
-
-    try:
-        return input("   Ledger start page: ")
-    except KeyboardInterrupt:
-        return None
-
-#===============================================================================
-def InputLedgerEndPage():
-    print("\nPlease enter ledger end page (Trinity default 0):")
-
-    try:
-        return input("   Ledger end page: ")
-    except KeyboardInterrupt:
-        return None
-
-#===============================================================================
-def InputAddressAmount():
-    print("\nPlease enter the amount of addresses to generate:")
-
-    try:
-        return input("   Address amount: ")
-    except KeyboardInterrupt:
-        return None
 
 #===============================================================================
 def SearchLedgerIndex(recovery_words, passphrase, ledger_start_index, ledger_end_index, ledger_start_page, ledger_end_page, address_amount):
@@ -67,6 +22,7 @@ def SearchLedgerIndex(recovery_words, passphrase, ledger_start_index, ledger_end
             addresses = generator.get_addresses(start=0, count=address_amount, step=1)
             result    = api.get_balances(addresses=addresses)
 
+            # search by available balances
             found = False
             for address_index, balance in enumerate(result['balances']):
                 if balance == 0:
@@ -75,10 +31,12 @@ def SearchLedgerIndex(recovery_words, passphrase, ledger_start_index, ledger_end
                 found = True
                 print("\n      Found balance %di (seed: %s, ledger index: %d, ledger page: %d, address index: %d" % (balance, iota_seed, ledger_index, ledger_page, address_index))
                 print("\n      Your Address: %s" % (addresses[address_index]))
-                print("\n                    https://thetangle.org/address/%s" % (addresses[address_index]))
+                print("\n                    https://explorer.iota.org/mainnet/address/%s" % (addresses[address_index][:81]))
 
-            if not found:
-                print("      no funds found!")
+            if found:
+                return
+
+            print("      no funds found!")
 
 #===============================================================================
 def RecoverSeedAndIndex():
